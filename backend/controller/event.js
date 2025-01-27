@@ -25,23 +25,24 @@ router.post(
           images = req.body.images;
         }
 
-        const imagesLinks = [];
 
-        for (let i = 0; i < images.length; i++) {
-          const result = await cloudinary.v2.uploader.upload(images[i], {
-            folder: "products",
-          });
+        // for (let i = 0; i < images.length; i++) {
+        //   const result = await cloudinary.v2.uploader.upload(images[i], {
+        //     folder: "products",
+        //   });
 
-          imagesLinks.push({
-            public_id: result.public_id,
-            url: result.secure_url,
-          });
-        }
-
+        //   imagesLinks.push({
+        //     public_id: result.public_id,
+        //     url: result.secure_url,
+        //   });
+        // }
+        // console.log("here IN EVENTS CONTROLLER ");
+        
         const productData = req.body;
-        productData.images = imagesLinks;
+        productData.images = images;
         productData.shop = shop;
-
+        
+        // console.log(productData);
         const event = await Event.create(productData);
 
         res.status(201).json({

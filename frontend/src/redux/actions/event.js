@@ -1,25 +1,75 @@
 import axios from "axios";
 import { server } from "../../server";
 
-// create event
-export const createevent = (data) => async (dispatch) => {
-  try {
-    dispatch({
-      type: "eventCreateRequest",
-    });
+// // create event
+// export const createevent = (data) => async (dispatch) => {
+//   try {
+//     dispatch({
+//       type: "eventCreateRequest",
+//     });
 
-    const { d } = await axios.post(`${server}/event/create-event`, data);
-    dispatch({
-      type: "eventCreateSuccess",
-      payload: d.event,
-    });
-  } catch (error) {
-    dispatch({
-      type: "eventCreateFail",
-      payload: error.response.data.message,
-    });
-  }
-};
+//     const { d } = await axios.post(`${server}/event/create-event`, data);
+//     dispatch({
+//       type: "eventCreateSuccess",
+//       payload: d.event,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: "eventCreateFail",
+//       payload: error.response.data.message,
+//     });
+//   }
+// };
+
+// create product
+export const createevent =
+  (
+    name,
+    description,
+    category,
+    tags,
+    originalPrice,
+    discountPrice,
+    stock,
+    startdate,
+    enddate,
+    shopId,
+    images
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: "eventCreateRequest",
+      });
+
+      const { data } = await axios.post(
+        `${server}/event/create-event`,
+        name,
+        description,
+        category,
+        tags,
+        originalPrice,
+        discountPrice,
+        stock,
+        startdate,
+        enddate,
+        shopId,
+        images,
+      );
+      dispatch({
+        type: "eventCreateSuccess",
+        payload: data.product,
+      });
+      // console.log("Here in events action backend");
+      // console.log(data);
+    } catch (error) {
+      dispatch({
+        type: "eventCreateFail",
+        payload: error.response.data.message,
+      });
+      // console.log("Here in events action backend ERROR");
+    }
+  };
 
 // get all events of a shop
 export const getAllEventsShop = (id) => async (dispatch) => {

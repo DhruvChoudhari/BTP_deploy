@@ -28,10 +28,12 @@ const CreateEvent = () => {
     const minEndDate = new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000);
     setStartDate(startDate);
     setEndDate(null);
-    document.getElementById("end-date").min = minEndDate.toISOString.slice(
-      0,
-      10
-    );
+  
+    // Check if the element exists before setting the 'min' property
+    const endDateInput = document.getElementById("end-date");
+    if (endDateInput) {
+      endDateInput.min = minEndDate.toISOString().slice(0, 10);
+    }
   };
 
   const handleEndDateChange = (e) => {
@@ -49,9 +51,11 @@ const CreateEvent = () => {
 
   useEffect(() => {
     if (error) {
+      console.log("DC ERROR ON SUBMIT")
       toast.error(error);
     }
     if (success) {
+      console.log("DC SUCCES ON SUBMIT")
       toast.success("Event created successfully!");
       navigate("/dashboard-events");
       window.location.reload();
@@ -249,7 +253,7 @@ const CreateEvent = () => {
             id="upload"
             className="hidden"
             multiple
-            onChange={handleImageChange}
+            // onChange={handleImageChange}
           />
           <div className="w-full flex items-center flex-wrap">
             <label htmlFor="upload">
