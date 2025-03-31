@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 app.use(cors({
-  origin: ['https://btp-frontend-2.onrender.com',],
+  origin: 'https://btp-frontend-2.onrender.com',
   credentials: true
 }));
 
